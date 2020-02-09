@@ -9,9 +9,11 @@ const routes = () => (
     <BrowserRouter>
         <Switch>
             {/** Map each route defined in the routes.js file */}
-            {Object.keys(ROUTES).map((key) => (
-                <Page key={key} {...ROUTES[key]} />
+            {ROUTES.filter(route => !route.hidden).map((route, key) => (
+                <Page key={key} {...route} />
             ))}
+            {/** Login route */}
+            <Route {...ROUTES.find(r => r.path === "/login")} />
             {/** Handle page not found */}
             <Route component={NotFoundPage} />
         </Switch>

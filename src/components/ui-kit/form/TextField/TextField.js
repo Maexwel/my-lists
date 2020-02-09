@@ -18,10 +18,10 @@ const TextField = (props) => {
 
     return (
         <MaterialTextField
+            {...props}
             variant="outlined"
             onChange={handleChange}
             ref={inputRef}
-            {...props}
         />
     );
 };
@@ -34,6 +34,7 @@ TextField.propTypes = {
     value: PropTypes.string,
     InputProps: PropTypes.object,
     inputRef: PropTypes.object, // To pass ref
+    type: PropTypes.oneOf(["password", "email", "text", "number"])
 };
 TextField.defaultProps = {
     value: '',

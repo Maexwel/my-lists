@@ -92,7 +92,7 @@ const Page = (props) => {
     const [open, setOpen] = React.useState(false);
 
     // Main menu's links
-    const links = Object.keys(C).map(key => C[key])
+    const links = C.filter(route => !route.hidden).map(route => route);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -157,7 +157,7 @@ const Page = (props) => {
                     <div className={classes.toolbar}>
                         <Typography component="h5">
                             {translation["DRAWER_TITLE"]}
-                            </Typography>
+                        </Typography>
                         <IconButton onClick={handleDrawerClose}>
                             {theme.direction === 'rtl' ? <Icon>chevron_right</Icon> : <Icon>chevron_left</Icon>}
                         </IconButton>
