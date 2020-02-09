@@ -14,21 +14,42 @@ import { ServiceLocatorProvider, baseServiceLocator } from './components/context
 import { NotificationProvider } from './components/ui-kit'; // Notification provider
 import { MuiPickersUtilsProvider, } from '@material-ui/pickers'; // Picker util provider
 import MomentUtils from '@date-io/moment'; // Moment utility for pickers
+// Apollo
+import ApolloClient from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { ApolloProvider } from 'react-apollo';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 require('dotenv').config();
 
 const store = storeFactory();
 
+// Apollo client setup
+const createApolloClient = (authToken) => {
+    return new ApolloClient({
+        link: new HttpLink({
+            uri: process.env.REACT_APP_GRAPHQL_ENDPOINT,
+            headers: {
+                "content-type": "application/json"
+            }
+        }),
+        cache: new InMemoryCache(),
+    });
+};
+const client = createApolloClient(""); // GraphQL Client
+
 ReactDOM.render(
-    <Provider store={store}>
-        <ThemeProvider theme={theme}>
-            <ServiceLocatorProvider value={baseServiceLocator}>
-                <NotificationProvider >
-                    <MuiPickersUtilsProvider utils={MomentUtils}>
-                        <Router />
-                    </MuiPickersUtilsProvider>
-                </NotificationProvider>
-            </ServiceLocatorProvider>
-        </ThemeProvider>
-    </Provider>
+    <ApolloProvider client={client}>
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <ServiceLocatorProvider value={baseServiceLocator}>
+                    <NotificationProvider >
+                        <MuiPickersUtilsProvider utils={MomentUtils}>
+                            <Router />
+                        </MuiPickersUtilsProvider>
+                    </NotificationProvider>
+                </ServiceLocatorProvider>
+            </ThemeProvider>
+        </Provider>
+    </ApolloProvider>
     , document.getElementById('root'));
 serviceWorker.unregister();

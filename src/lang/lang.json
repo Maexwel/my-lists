@@ -7,9 +7,13 @@
         "fr": "Anglais",
         "en": "English"
     },
-    "APP_PAGE": {
-        "fr": "Page principale",
-        "en": "Base page"
+    "HOME_PAGE": {
+        "fr": "Tableau de bord",
+        "en": "Dashboard"
+    },
+    "LIST_PAGE": {
+        "fr": "Mes listes",
+        "en": "My lists"
     },
     "DATATABLE_ROWS_PER_PAGE": {
         "fr": "Lignes par page",
@@ -18,5 +22,9 @@
     "DATATABLE_NBR_ROW_SELECTED": {
         "fr": "ligne(s) sélectionnée(s)",
         "en": "row(s) selected"
+    },
+    "DRAWER_TITLE": {
+        "fr": "Menu",
+        "en": "Menu"
     }
 }

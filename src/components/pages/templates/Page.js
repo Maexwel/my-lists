@@ -156,7 +156,7 @@ const Page = (props) => {
                 >
                     <div className={classes.toolbar}>
                         <Typography component="h5">
-                            App brand
+                            {translation["DRAWER_TITLE"]}
                             </Typography>
                         <IconButton onClick={handleDrawerClose}>
                             {theme.direction === 'rtl' ? <Icon>chevron_right</Icon> : <Icon>chevron_left</Icon>}
