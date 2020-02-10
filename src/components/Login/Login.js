@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => createStyles({
         width: '100%',
     }
 }));
-
 // Login component used to log user in to authenticate
 // This component also handle login redirection and local storage checking
 const Login = ({ client, translation, history, userToState }) => {
@@ -70,13 +69,14 @@ const Login = ({ client, translation, history, userToState }) => {
             const { user, auth } = await loginService.login({ email, passwd }); // Login request
             if (auth) {
                 userToState(user); // Redux user
+                history.push('/dashboard'); // Redirect
             } else {
                 setErrorMessage(translation["LOGIN_WRONG_CREDENTIALS"]); // Wrong email/password
+                setLoading(false);
             }
         } catch (err) {
             // display error to user
             setErrorMessage(translation["LOGIN_ERROR_MESSAGE"]); // Error message
-        } finally {
             setLoading(false);
         }
     };

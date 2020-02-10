@@ -44,7 +44,8 @@ const useStyles = makeStyles((theme) =>
         drawer: {
             width: drawerWidth,
             flexShrink: 0,
-            whiteSpace: 'nowrap'
+            whiteSpace: 'nowrap',
+            color: 'white'
         },
         drawerOpen: {
             width: drawerWidth,
@@ -70,6 +71,11 @@ const useStyles = makeStyles((theme) =>
             justifyContent: 'space-between',
             padding: theme.spacing(0, 1),
             ...theme.mixins.toolbar,
+            background: theme.palette.primary.main,
+            color: theme.palette.common.white,
+        },
+        toolbarIcon: {
+            color: theme.palette.common.white,
         },
         content: {
             padding: theme.spacing(2),
@@ -158,7 +164,7 @@ const Page = (props) => {
                         <Typography component="h5">
                             {translation["DRAWER_TITLE"]}
                         </Typography>
-                        <IconButton onClick={handleDrawerClose}>
+                        <IconButton className={classes.toolbarIcon} onClick={handleDrawerClose}>
                             {theme.direction === 'rtl' ? <Icon>chevron_right</Icon> : <Icon>chevron_left</Icon>}
                         </IconButton>
                     </div>

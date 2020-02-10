@@ -4,7 +4,7 @@ export const routes = [
     {
         icon: 'dashboard', // Material icon name
         path: '/',
-        name: 'HOME_PAGE', // It should match a key in the lang file
+        name: 'DASHBOARD_PAGE', // It should match a key in the lang file
         exact: true,
         component: DashboardPage,
     },
