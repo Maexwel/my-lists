@@ -2,8 +2,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import { ServiceLocatorContext } from '../context';
 import PropTypes from 'prop-types';
 import { withApollo } from 'react-apollo';
-import { TextField, ActionButton } from '../ui-kit';
-import { Grid, Paper, Typography } from '@material-ui/core';
+import { TextField, ActionButton, Loading } from '../ui-kit';
+import { Grid } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -13,11 +13,7 @@ import { Message } from '../ui-kit/feedback';
 // Style def
 const useStyles = makeStyles(theme => createStyles({
     root: {
-        padding: theme.spacing(4),
-        background:theme.palette.primary.light,
-    },
-    title: {
-        fontSize: 20,
+        minWidth: 300,
     },
     fullWidth: {
         width: '100%',
@@ -86,56 +82,54 @@ const Login = ({ client, translation, history, userToState }) => {
     };
 
     return (
-        <Paper className={classes.root}>
-            <form onSubmit={onSubmit}>
-                <Grid
-                    container
-                    justify="space-between"
-                    alignItems="center"
-                    direction="column"
-                    spacing={2}>
-                    <Grid item>
-                        <Typography className={classes.title} component="h1">{translation["LOGIN_PAGE_TITLE"]}</Typography>
-                    </Grid>
-                    <Grid item className={classes.fullWidth}>
-                        <TextField
-                            className={classes.fullWidth}
-                            name="email"
-                            onChange={handleChange}
-                            label={translation["LOGIN_EMAIL_FIELD_LABEL"]}
-                            value={email}
-                            type="email"
-                            placeholder="john.doe@gmail.com" />
-                    </Grid>
-                    <Grid item className={classes.fullWidth}>
-                        <TextField
-                            className={classes.fullWidth}
-                            name="passwd"
-                            onChange={handleChange}
-                            label={translation["LOGIN_PASSWORD_FIELD_LABEL"]}
-                            value={passwd}
-                            type="password"
-                            placeholder="" />
-                    </Grid>
-                    <Grid
-                        item
-                        className={classes.fullWidth}>
-                        <ActionButton
-                            type="submit"
-                            className={classes.fullWidth}
-                            disabled={loading}
-                            label={translation["LOGIN_BUTTON_LABEL"]}
-                            onClick={onSubmit} />
-                    </Grid>
-                    {errorMessage !== '' ?
-                        <Grid item className={classes.fullWidth}>
-                            <Message type="error" value={errorMessage} />
-                        </Grid> : null}
+        < form className={classes.root} onSubmit={onSubmit} >
+            <Grid
+                container
+                justify="space-between"
+                alignItems="center"
+                direction="column"
+                spacing={2}>
+                <Grid item className={classes.fullWidth}>
+                    <TextField
+                        className={classes.fullWidth}
+                        name="email"
+                        onChange={handleChange}
+                        label={translation["LOGIN_EMAIL_FIELD_LABEL"]}
+                        value={email}
+                        type="email"
+                        placeholder="john.doe@gmail.com" />
                 </Grid>
-            </form>
-        </Paper>
+                <Grid item className={classes.fullWidth}>
+                    <TextField
+                        className={classes.fullWidth}
+                        name="passwd"
+                        onChange={handleChange}
+                        label={translation["LOGIN_PASSWORD_FIELD_LABEL"]}
+                        value={passwd}
+                        type="password"
+                        placeholder="" />
+                </Grid>
+                <Grid
+                    item
+                    className={classes.fullWidth}>
+                    <ActionButton
+                        type="submit"
+                        className={classes.fullWidth}
+                        disabled={loading}
+                        label={translation["LOGIN_BUTTON_LABEL"]}
+                        onClick={onSubmit} />
+                </Grid>
+                {errorMessage !== '' ?
+                    <Grid item className={classes.fullWidth}>
+                        <Message type="error" value={errorMessage} />
+                    </Grid> : null}
+                {loading &&
+                    <Grid item>
+                        <Loading />
+                    </Grid>}
+            </Grid>
+        </form >
     );
-
 };
 Login.propTypes = {
     client: PropTypes.object, // Graphql client

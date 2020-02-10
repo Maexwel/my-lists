@@ -27,9 +27,9 @@
         "fr": "Menu",
         "en": "Menu"
     },
-    "LOGIN_PAGE_TITLE": {
-        "fr": "Connexion",
-        "en": "Log in"
+    "APP_TITLE": {
+        "fr": "My Lists",
+        "en": "My Lists"
     },
     "LOGIN_EMAIL_FIELD_LABEL": {
         "fr": "Adresse mail",

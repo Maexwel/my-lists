@@ -1,10 +1,16 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { grey, blue } from '@material-ui/core/colors';
+import { blueGrey, red } from '@material-ui/core/colors';
 
 export const theme = createMuiTheme({
     palette: {
-        primary: grey, // Main color for the layout (app bar, ...)
-        secondary: blue, // Color used for inputs, ...
+        primary: {
+            ...blueGrey,
+            main: blueGrey[900],
+        }, // Main color for the layout (app bar, ...)
+        secondary: {
+            ...red,
+            main: red[600],
+        }, // Color used for inputs, ...
     },
 });
 

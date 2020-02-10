@@ -2,6 +2,7 @@ import 'core-js';
 import 'react-app-polyfill/stable';
 import 'react-app-polyfill/ie11'; // polyfills
 import 'typeface-roboto'; // Font
+import './index.css'; // CSS Base rules
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { ThemeProvider } from '@material-ui/styles'; // Design system provider
