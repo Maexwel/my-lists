@@ -1,0 +1,78 @@
+-- ************************************** "item_type"
+CREATE SEQUENCE item_type_seq;
+CREATE TABLE "item_type"
+(
+ "item_type_id" int default nextval('item_type_seq'::regclass) NOT NULL,
+ "label"        varchar(50) NOT NULL,
+ CONSTRAINT "PK_item_type" PRIMARY KEY ( "item_type_id" )
+);
+
+-- ************************************** "app_user"
+CREATE SEQUENCE app_user_seq;
+CREATE TABLE "app_user"
+(
+ "app_user_id" int default nextval('app_user_seq'::regclass) NOT NULL,
+ "email"       varchar(50) NOT NULL,
+ "username"    varchar(50) NOT NULL,
+ "passwd"      varchar(50) NOT NULL,
+ CONSTRAINT "PK_users" PRIMARY KEY ( "app_user_id" )
+);
+
+-- ************************************** "list"
+CREATE SEQUENCE list_seq;
+CREATE TABLE "list"
+(
+ "list_id"     int default nextval('list_seq'::regclass) NOT NULL,
+ "name"        varchar(50) NOT NULL,
+ "app_user_id" int NOT NULL,
+ "is_archived"  boolean NOT NULL,
+ "createdAt"   date NOT NULL,
+ CONSTRAINT "PK_list" PRIMARY KEY ( "list_id" ),
+ CONSTRAINT "FK_13" FOREIGN KEY ( "app_user_id" ) REFERENCES "app_user" ( "app_user_id" )
+);
+
+CREATE INDEX "fkIdx_13" ON "list"
+(
+ "app_user_id"
+);
+
+-- ************************************** "list_item"
+CREATE SEQUENCE list_item_seq;
+CREATE TABLE "list_item"
+(
+ "list_item_id" int default nextval('list_item_seq'::regclass) NOT NULL,
+ "label"        varchar(255) NOT NULL,
+ "list_id"      int NOT NULL,
+ "is_checked"    boolean NOT NULL,
+ "created_at"    date NOT NULL,
+ "item_type_id" int NOT NULL,
+ CONSTRAINT "PK_list_item" PRIMARY KEY ( "list_item_id" ),
+ CONSTRAINT "FK_24" FOREIGN KEY ( "list_id" ) REFERENCES "list" ( "list_id" ),
+ CONSTRAINT "FK_39" FOREIGN KEY ( "item_type_id" ) REFERENCES "item_type" ( "item_type_id" )
+);
+
+CREATE INDEX "fkIdx_24" ON "list_item"
+(
+ "list_id"
+);
+
+CREATE INDEX "fkIdx_39" ON "list_item"
+(
+ "item_type_id"
+);
+
+-- ************************************** "suggestion"
+CREATE SEQUENCE suggestion_seq;
+CREATE TABLE "suggestion"
+(
+ "suggestion_id" int default nextval('suggestion_seq'::regclass) NOT NULL,
+ "label"         varchar(255) NOT NULL,
+ "item_type_id"  int NOT NULL,
+ CONSTRAINT "PK_suggestion" PRIMARY KEY ( "suggestion_id" ),
+ CONSTRAINT "FK_42" FOREIGN KEY ( "item_type_id" ) REFERENCES "item_type" ( "item_type_id" )
+);
+
+CREATE INDEX "fkIdx_42" ON "suggestion"
+(
+ "item_type_id"
+);

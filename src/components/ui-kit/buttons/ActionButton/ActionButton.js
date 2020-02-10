@@ -43,7 +43,7 @@ ActionButton.propTypes = {
     onClick: PropTypes.func.isRequired,
 };
 ActionButton.defaultProps = {
-    color: "secondary",
+    color: "primary",
 };
 export default ActionButton;
 

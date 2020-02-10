@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { routes as C } from '../../../router/routes';
 import clsx from 'clsx';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { Drawer, Grid, AppBar, Toolbar, List, ListItemText, ListItemIcon, ListItem, IconButton, Divider, CssBaseline, Typography, Icon } from '@material-ui/core';
@@ -17,8 +16,8 @@ const useStyles = makeStyles((theme) =>
             display: 'flex',
         },
         selectedListItem: {
-            color: theme.palette.secondary.main,
-            background: "#EAEAEA"
+            color: theme.palette.primary.main,
+            background: theme.palette.grey[200]
         },
         appBar: {
             zIndex: theme.zIndex.drawer + 1,
@@ -26,6 +25,7 @@ const useStyles = makeStyles((theme) =>
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.leavingScreen,
             }),
+            backgroundColor: theme.palette.secondary.main,
         },
         appBarShift: {
             marginLeft: drawerWidth,
@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) =>
             justifyContent: 'space-between',
             padding: theme.spacing(0, 1),
             ...theme.mixins.toolbar,
-            background: theme.palette.primary.main,
+            background: theme.palette.secondary.main,
             color: theme.palette.common.white,
         },
         toolbarIcon: {
@@ -97,8 +97,19 @@ const Page = (props) => {
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
-    // Main menu's links
-    const links = C.filter(route => !route.hidden).map(route => route);
+    // Main menu's linksS
+    const links = [
+        {
+            icon: 'dashboard', // Material icon name
+            path: '/',
+            name: 'DASHBOARD_PAGE', // It should match a key in the lang file
+        },
+        {
+            icon: 'list',
+            path: '/lists',
+            name: 'LIST_PAGE',
+        },
+    ];
 
     const handleDrawerOpen = () => {
         setOpen(true);

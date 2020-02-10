@@ -50,9 +50,8 @@ const LangPicker = ({ selectedLang, translation, langToState }) => {
         <React.Fragment>
             <Button
                 variant="contained"
-                color="secondary"
-                onClick={openMenu}
-            >
+                color="primary"
+                onClick={openMenu}>
                 <span>{getLabel(selectedLang)}</span>
                 <Icon>arrow_drop_down</Icon>
             </Button>

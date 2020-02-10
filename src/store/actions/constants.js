@@ -3,4 +3,6 @@ export const constants = {
     UPDATE_VIEW: "UPDATE_VIEW",
     UPDATE_SELECTED_LANG: "UPDATE_SELECTED_LANG",
     SET_USER: "SET_USER",
+    SET_LIST: "SET_LIST",
+    UPDATE_LIST: "UPDATE_LIST",
 };

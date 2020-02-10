@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 const useStyles = makeStyles(theme => createStyles({
     root: {
         height: '100vh',
-        background: theme.palette.primary.main,
+        background: theme.palette.secondary.main,
         margin: 0,
         padding: 0,
     },

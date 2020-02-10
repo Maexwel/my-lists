@@ -1,6 +1,6 @@
 import { LocalStorageManager, NotificationFactory } from '../../util';
 import { LangManager } from '../../lang';
-import { LoginService, UserService } from '../../service';
+import { LoginService, UserService, ListService } from '../../service';
 export { default as ServiceLocatorContext, ServiceLocatorProvider, ServiceLocatorConsumer } from './ServiceLocatorContext';
 
 export const baseServiceLocator = {
@@ -11,4 +11,5 @@ export const baseServiceLocator = {
     // GRAPHQL SERVICES
     loginService: new LoginService(),
     userService: new UserService(),
+    listService: new ListService(),
 }; // base values for the service locator
