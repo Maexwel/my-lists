@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // Base button with theme color as background
 // Override of the Button from material-ui
 const ActionButton = (props) => {
-    const { tip = '', type = 'default' } = props;
+    const { tip = '', type = 'default', className } = props;
 
     // Render button based on his type
     const buttonFactory = () => {
@@ -25,32 +25,39 @@ const ActionButton = (props) => {
         <Tooltip
             title={tip}
             placement="bottom">
-            <div>
+            <div className={className}>
                 {buttonFactory()}
             </div>
         </Tooltip>
     );
 };
 ActionButton.propTypes = {
+    className: PropTypes.string,
     label: PropTypes.string,
     tip: PropTypes.string,
     icon: PropTypes.string, // Icon name
-    type: PropTypes.oneOf(["default", "fab", "icon"]),
+    variant: PropTypes.oneOf(["default", "fab", "icon"]),
+    type: PropTypes.string,
     color: PropTypes.oneOf(["primary", "secondary", "default"]),
     disabled: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
+};
+ActionButton.defaultProps = {
+    color: "secondary",
 };
 export default ActionButton;
 
 // // //
 // Default button (Contained button)
-const DefaultButton = ({ label, color, icon, onClick, disabled }) => {
+const DefaultButton = ({ label, icon, onClick, disabled, className, type, color }) => {
     return (
         <Button
             onClick={onClick}
             variant="contained"
             color={color}
             disabled={disabled}
+            className={className}
+            type={type}
         >
             {icon && <Icon>{icon}</Icon>}
             {label}
@@ -60,10 +67,12 @@ const DefaultButton = ({ label, color, icon, onClick, disabled }) => {
 
 // // //
 // Floating Action Button
-const FabButton = ({ icon, onClick, disabled }) => {
+const FabButton = ({ icon, onClick, disabled, className, type }) => {
     return (
         <Fab
             disabled={disabled}
+            type={type}
+            className={className}
             onClick={onClick}>
             <Icon>
                 {icon}
@@ -74,10 +83,12 @@ const FabButton = ({ icon, onClick, disabled }) => {
 
 // // //
 // Icon button (button that is an icon)
-const IconButton = ({ icon, color, onClick, disabled }) => {
+const IconButton = ({ icon, onClick, disabled, className, type, color }) => {
     return (
         <MaterialIconButton
             disabled={disabled}
+            type={type}
+            className={className}
             onClick={onClick}
             color={color} >
             <Icon>

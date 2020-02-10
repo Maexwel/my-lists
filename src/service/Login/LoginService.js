@@ -12,12 +12,15 @@ export default class LoginService extends GraphQLService {
                     app_user(where: {email: {_eq: $email}, _and: {passwd: {_eq: $passwd}}}) {
                         username
                         email
-                        passwd
                         app_user_id
                 }
             }`;
-                const data = await this._client.query({ query, fetchPolicy: 'no-cache', variables: { passwd, email } }); // Query
-                resolve(data);
+                const { data } = await this._client.query({ query, fetchPolicy: 'no-cache', variables: { passwd, email } }); // Query
+                if (data["app_user"].length > 0) {
+                    resolve({ auth: true, user: data["app_user"][0] }); // Resolve user data                    
+                } else {
+                    resolve({ auth: false }); // resolve false (not logged in)
+                }
             } catch (err) {
                 reject(err); // Error while fetching user for authentication
             }

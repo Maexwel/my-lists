@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { C } from '../../lang';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,42 +8,15 @@ import { ServiceLocatorContext } from '../context';
 
 // Component used to define and change the selected lang
 // This component initialize the default lang and will update the Redux store used for lang
-const LangPicker = ({ selectedLang, data, translation, langToState }) => {
+const LangPicker = ({ selectedLang, translation, langToState }) => {
     const [anchorEl, setAnchorEl] = useState(null);
-    const { localStorageManager, langManager } = useContext(ServiceLocatorContext);
+    const { localStorageManager } = useContext(ServiceLocatorContext);
 
     // Lang options
     const options = [
         { label: translation["FR_LANG"], value: C.LANG_FR },
         { label: translation["EN_LANG"], value: C.LANG_EN },
     ];
-
-    // on init
-    useEffect(() => {
-        localStorageManager.getItem(localStorageManager.KEYS.LANG_DATA)
-            .then(({ selectedLang }) => {
-                if (data && selectedLang) {
-                    langToState({ selectedLang }); // Redux set selectedLang
-                    localStorageManager.setItem(localStorageManager.KEYS.LANG_DATA, selectedLang); // local storage
-                } else {
-                    langToState({ selectedLang: C.LANG_FR }); // Redux set selectedLang (default fr)
-                    localStorageManager.setItem(localStorageManager.KEYS.LANG_DATA, C.LANG_FR); // local storage
-                }
-            })
-            .catch((err) => {
-                // Error is thrown, there is no items in local storage
-                langToState({ selectedLang: C.LANG_FR }); // Redux set selectedLang (default fr)
-                localStorageManager.setItem(localStorageManager.KEYS.LANG_DATA, C.LANG_FR); // local storage
-            }); // get lang data
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    // Reaction to a change in the selectedLang
-    useEffect(() => {
-        const translation = langManager.translate(selectedLang, data); // translate to selected lang
-        langToState({ translation }); // Redux update translation
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedLang])
 
     // Changing the selected lang
     const changeSelectedLang = (selected) => {
@@ -106,7 +79,6 @@ const LangPicker = ({ selectedLang, data, translation, langToState }) => {
 }
 LangPicker.propTypes = {
     selectedLang: PropTypes.string,
-    data: PropTypes.object,
     translation: PropTypes.object,
     langToState: PropTypes.func
 }
@@ -115,7 +87,6 @@ LangPicker.propTypes = {
 const mapStateToProps = state => ({
     selectedLang: state.lang.selectedLang, // Current location in the app
     translation: state.lang.translation, // Current location in the app
-    data: state.lang.data, // Data from the lang file
 })
 
 const mapDispatchToProps = dispatch => {

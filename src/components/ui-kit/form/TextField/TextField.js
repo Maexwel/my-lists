@@ -27,6 +27,7 @@ const TextField = (props) => {
 };
 TextField.propTypes = {
     name: PropTypes.string,
+    className: PropTypes.string,
     label: PropTypes.string,
     placeholder: PropTypes.string,
     onChange: PropTypes.func.isRequired,

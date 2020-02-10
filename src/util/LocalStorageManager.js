@@ -1,6 +1,6 @@
 export const LOCAL_STORAGE_KEYS = {
-    AUTH_TOKEN: "auth_token",
-    LANG_DATA: "lang_data",
+    USER_INFO: "my-list-user",
+    LANG_DATA: "my-list-lang",
 }; // Local storage keys constant
 
 // Local storage module

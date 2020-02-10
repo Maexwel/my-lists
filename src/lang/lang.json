@@ -26,5 +26,29 @@
     "DRAWER_TITLE": {
         "fr": "Menu",
         "en": "Menu"
+    },
+    "LOGIN_PAGE_TITLE": {
+        "fr": "Connexion",
+        "en": "Log in"
+    },
+    "LOGIN_EMAIL_FIELD_LABEL": {
+        "fr": "Adresse mail",
+        "en": "Email"
+    },
+    "LOGIN_PASSWORD_FIELD_LABEL": {
+        "fr": "Mot de passe",
+        "en": "Password"
+    },
+    "LOGIN_ERROR_MESSAGE": {
+        "fr": "Erreur lors du login",
+        "en": "Error while login"
+    },
+    "LOGIN_WRONG_CREDENTIALS": {
+        "fr": "Email ou mot de passe incorrect",
+        "en": "Wrong email or password"
+    },
+    "LOGIN_BUTTON_LABEL": {
+        "fr": "Se connecter",
+        "en": "Log in"
     }
 }
