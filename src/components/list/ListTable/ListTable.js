@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { DataTable } from '../ui-kit';
-import { ServiceLocatorContext } from '../context';
+import { DataTable } from '../../ui-kit';
+import { ServiceLocatorContext } from '../../context';
 import { withApollo } from 'react-apollo';
 import { useSnackbar } from 'notistack';
 import { connect } from 'react-redux';
-import { updateListAction } from '../../store/actions/listActions';
+import { updateListAction } from '../../../store/actions/listActions';
 
 // DataTable configured for the list items with actions
 const ListTable = ({ client, listToState, list = {} }) => {
@@ -29,13 +29,13 @@ const ListTable = ({ client, listToState, list = {} }) => {
         }
     };
 
-    return (
+    return list.list_id ? (
         <DataTable
             checkable={false}
-            data={list.list_items}
+            data={list.lists}
             title={list.name}
         />
-    );
+    ) : null;
 };
 ListTable.propTypes = {
     client: PropTypes.object, // Apollo
@@ -44,7 +44,7 @@ ListTable.propTypes = {
         list_id: PropTypes.number,
         is_archived: PropTypes.bool,
         created_at: PropTypes.string,
-        list_items: PropTypes.arrayOf(PropTypes.shape({
+        lists: PropTypes.arrayOf(PropTypes.shape({
             list_item_id: PropTypes.number,
             name: PropTypes.string,
             created_at: PropTypes.string,
@@ -69,4 +69,4 @@ const mapDispatchToProps = dispatch => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(withApollo(ListTable));
+export default withApollo(connect(mapStateToProps, mapDispatchToProps)(ListTable));

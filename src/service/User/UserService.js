@@ -15,17 +15,17 @@ export default class UserService extends GraphQLService {
                             email
                             username
                             lists {
-                            list_id
-                            created_at
-                            is_archived
-                            name
+                                list_id
+                                created_at
+                                is_archived
+                                name
                             }
                         }
                     }
                 `;
-                const { data } = await this._client.query({ query, fetchPolicy: 'no-cache', variables: { app_user_id: userId } }); // Fetch data
+                const { data } = await this._client.query({ query, fetchPolicy: 'no-cache', variables: { id: userId } }); // Fetch data
                 if (data.app_user && data.app_user.length > 0) {
-                    resolve(data.app_user);
+                    resolve(data.app_user[0]);
                 } else {
                     reject("No data found");
                 }

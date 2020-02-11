@@ -10,7 +10,7 @@ const appReducer = combineReducers({
     view, // { currentPage: { path, name, displayText} }
     lang, // { selectedLang, data, translation }
     user, // { email, username, app_user_id }
-    list, // { list_id, list_items, name, created_at, is_archived }
+    list, // { list_id, lists, name, created_at, is_archived }
 });
 
 // Root reducer is used to clear the whole store. This is used for logout actions
