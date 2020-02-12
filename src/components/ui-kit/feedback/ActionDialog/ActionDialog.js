@@ -36,7 +36,7 @@ const ActionDialog = ({ isOpen, toggle, title, children, onCancel, onSubmit, act
             {/** FOOTER (actions) */}
             {action &&
                 <DialogActions>
-                    <ActionButton label={cancelLabel} onClick={onCancel} />
+                    <ActionButton color="default" label={cancelLabel} onClick={onCancel} />
                     <ActionButton disabled={submitDisabled} label={submitLabel} onClick={onSubmit} color="primary" />
                 </DialogActions>}
         </Dialog>

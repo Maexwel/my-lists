@@ -4,7 +4,7 @@ import DashboardItem from '../DashboardItem/DashboardItem';
 import { ListTable, CreateList } from '../list';
 import { connect } from 'react-redux';
 import { setListAction } from '../../store/actions/listActions';
-import { Grid, Divider } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import PageTitle from './PageTitle';
 
