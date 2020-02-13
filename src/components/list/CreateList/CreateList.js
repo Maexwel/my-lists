@@ -49,7 +49,7 @@ const CreateList = ({ translation, user }) => {
                     justify="center"
                     alignItems="center">
                     <Grid item>
-                        <Typography className={classes.text}>Create</Typography>
+                        <Typography className={classes.text}>{translation["CREATE_LIST_BUTTON"]}</Typography>
                     </Grid>
                     <Grid item>
                         <Icon>add</Icon>
@@ -58,11 +58,15 @@ const CreateList = ({ translation, user }) => {
             </Button>
             {/** Dialog */}
             <ActionDialog
+                title={translation["CREATE_LIST_DIALOG_TITLE"]}
+                cancelLabel={translation["CREATE_LIST_DIALOG_CANCEL"]}
+                submitLabel={translation["CREATE_LIST_DIALOG_SUBMIT"]}
                 isOpen={open}
                 toggle={setOpen}
                 onCancel={() => setOpen(false)}
                 onSubmit={handleSubmit}>
                 {/** Form */}
+
             </ActionDialog>
         </React.Fragment>
     )

@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 // Base button with theme color as background
 // Override of the Button from material-ui
 const ActionButton = (props) => {
-    const { tip = '', type = 'default', className } = props;
+    const { tip = '', variant = 'default', className } = props;
 
     // Render button based on his type
     const buttonFactory = () => {
-        switch (type) {
+        switch (variant) {
             case "default":
                 return <DefaultButton {...props} />
             case "fab":
@@ -83,15 +83,13 @@ const FabButton = ({ icon, onClick, disabled, className, type }) => {
 
 // // //
 // Icon button (button that is an icon)
-const IconButton = ({ icon, onClick, disabled, className, type, color }) => {
+const IconButton = ({ icon, onClick, disabled, className, type }) => {
     return (
         <MaterialIconButton
             disabled={disabled}
             type={type}
-            className={className}
-            onClick={onClick}
-            color={color} >
-            <Icon>
+            onClick={onClick} >
+            <Icon className={className}>
                 {icon}
             </Icon>
         </MaterialIconButton>

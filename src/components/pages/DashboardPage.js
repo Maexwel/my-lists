@@ -31,7 +31,7 @@ const DashboardPage = ({ user, list, translation, listToState }) => {
     return (
         <div>
             {/** Page title */}
-            <PageTitle title="title" />
+            <PageTitle title={translation["DASHBOARD_PAGE"]} />
             {/** Dashboard items */}
             <Grid
                 spacing={1}
@@ -39,10 +39,10 @@ const DashboardPage = ({ user, list, translation, listToState }) => {
                 justify="flex-start"
                 alignItems="stretch">
                 <Grid item md={2}>
-                    <DashboardItem label="test1" />
+                    <DashboardItem label={translation["ACTIVE_LIST_DASHBOARD"]} />
                 </Grid>
                 <Grid item md={2}>
-                    <DashboardItem label="test2" />
+                    <DashboardItem label={translation["ARCHIVED_LIST_DASHBOARD"]} />
                 </Grid>
                 <Grid item md={1} className={classes.fullHeight}>
                     {/** New list button */}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // Component used to display a loading animation
 // This component is using material-ui loading animation
-const Loading = ({ variant = 'secondary', size = 35 }) => {
+const Loading = ({ variant = 'primary', size = 35 }) => {
     return (
         <CircularProgress size={size} color={variant} />
     );

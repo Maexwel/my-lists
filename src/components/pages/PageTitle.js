@@ -10,13 +10,12 @@ const useStyles = makeStyles(theme => createStyles(
             padding: theme.spacing(2),
         },
         text: {
-            fontSize: 25,
-            fontWeight: 'bold'
+            fontSize: 35,
         }
     }
 ));
 // Title of a page (display at the top)
-const PageTitle = ({ title }) => {
+const PageTitle = ({ title = '' }) => {
     const classes = useStyles();
 
     return (
@@ -27,6 +26,6 @@ const PageTitle = ({ title }) => {
     )
 };
 PageTitle.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
 };
 export default PageTitle;

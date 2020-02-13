@@ -50,5 +50,29 @@
     "LOGIN_BUTTON_LABEL": {
         "fr": "Se connecter",
         "en": "Log in"
+    },
+    "CREATE_LIST_DIALOG_TITLE": {
+        "fr": "Nouvelle liste",
+        "en": "New list"
+    },
+    "CREATE_LIST_DIALOG_SUBMIT": {
+        "fr": "Créer",
+        "en": "Create"
+    },
+    "CREATE_LIST_DIALOG_CANCEL": {
+        "fr": "Annuler",
+        "en": "Cancel"
+    },
+    "CREATE_LIST_BUTTON": {
+        "fr": "Nouvelle liste",
+        "en": "New list"
+    },
+    "ACTIVE_LIST_DASHBOARD": {
+        "fr": "Listes actives",
+        "en": "Active lists"
+    },
+    "ARCHIVED_LIST_DASHBOARD": {
+        "fr": "Archives",
+        "en": "Archived"
     }
 }
