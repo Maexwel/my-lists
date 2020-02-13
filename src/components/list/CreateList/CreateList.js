@@ -62,7 +62,7 @@ const CreateList = ({ translation, user }) => {
                 cancelLabel={translation["CREATE_LIST_DIALOG_CANCEL"]}
                 submitLabel={translation["CREATE_LIST_DIALOG_SUBMIT"]}
                 isOpen={open}
-                toggle={setOpen}
+                toggle={() => setOpen(false)}
                 onCancel={() => setOpen(false)}
                 onSubmit={handleSubmit}>
                 {/** Form */}

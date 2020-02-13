@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Dialog, DialogContent, DialogActions, DialogTitle, Grid } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { ActionButton } from '../../';
+import { isMobile } from 'react-device-detect';
 
 // Style def
 const useStyles = makeStyles((theme) =>
@@ -20,12 +21,14 @@ const useStyles = makeStyles((theme) =>
 // The dialog should contain a header, a body (that is a component) and a footer with actions
 // This component is usefull for form dialog purpose or to show message
 // Override of Material Dialog
-const ActionDialog = ({ isOpen, toggle, title, children, onCancel, onSubmit, fullScreen = true, action = true, cancelLabel = "", submitDisabled = false, submitLabel = "" }) => {
+const ActionDialog = ({ isOpen, toggle, title, children, onCancel, onSubmit, fullScreen = isMobile, action = true, cancelLabel = "", submitDisabled = false, submitLabel = "" }) => {
     const classes = useStyles();
 
     return (
         <Dialog
             fullScreen={fullScreen}
+            fullWidth
+            maxWidth="sm"
             scroll="paper"
             open={isOpen}
             onClose={toggle}>
@@ -37,16 +40,16 @@ const ActionDialog = ({ isOpen, toggle, title, children, onCancel, onSubmit, ful
                     alignItems="center">
                     <Grid item>
                         {title}
-
                     </Grid>
-                    <Grid item>
-                        <ActionButton
-                            variant="icon"
-                            icon="close"
-                            onClick={onCancel}
-                            className={classes.close} />
+                    {isMobile &&
+                        <Grid item>
+                            <ActionButton
+                                variant="icon"
+                                icon="close"
+                                onClick={onCancel}
+                                className={classes.close} />
 
-                    </Grid>
+                        </Grid>}
                 </Grid>
             </DialogTitle>
             {/** BODY */}
