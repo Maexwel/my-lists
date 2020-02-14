@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
-import { Drawer, Grid, AppBar, Toolbar, List, ListItemText, ListItemIcon, ListItem, IconButton, Divider, CssBaseline, Typography, Icon } from '@material-ui/core';
+import { Drawer, Grid, AppBar, Toolbar, Tooltip, List, ListItemText, ListItemIcon, ListItem, IconButton, Divider, CssBaseline, Typography, Icon } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { updateViewAction } from '../../../store/actions/viewActions';
 import { withRouter } from 'react-router-dom';
@@ -142,8 +142,7 @@ const Page = (props) => {
                         <Grid
                             justify="space-between"
                             alignItems="center"
-                            container
-                        >
+                            container>
                             <Grid item>
                                 <IconButton
                                     color="inherit"
@@ -209,7 +208,8 @@ const Page = (props) => {
                                     {...link}
                                     displayText={translation[link.name]}
                                     isCurrent={currentPage.name === link.name}
-                                    history={history} />
+                                    history={history}
+                                    drawerOpen={open} />
                             )) : null}
                     </List>
                 </Drawer>
@@ -241,17 +241,40 @@ export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Page));
 
 // // //
 // Link displayed in the drawer
-const DrawerLink = ({ path, displayText, icon, isCurrent, history }) => {
+const DrawerLink = ({ path, icon, isCurrent, history, drawerOpen, displayText = '' }) => {
 
     const navigationClicked = (path) => {
         history.push(path); // Redirect to "path"
     }
 
     const classes = useStyles();
-    return (
-        <ListItem className={clsx(null, { [classes.selectedListItem]: isCurrent })} onClick={() => navigationClicked(path)} button >
-            <ListItemIcon className={clsx(null, { [classes.selectedListItem]: isCurrent })}><Icon>{icon}</Icon></ListItemIcon>
-            <ListItemText className={clsx(null, { [classes.selectedListItem]: isCurrent })} primary={displayText} />
-        </ListItem>
-    )
+    return drawerOpen ?
+        (<ListItem
+            className={clsx(null, { [classes.selectedListItem]: isCurrent })}
+            onClick={() => navigationClicked(path)}
+            button>
+            <ListItemIcon
+                className={clsx(null, { [classes.selectedListItem]: isCurrent })}>
+                <Icon>{icon}</Icon>
+            </ListItemIcon>
+            <ListItemText
+                className={clsx(null, { [classes.selectedListItem]: isCurrent })}
+                primary={displayText} />
+        </ListItem>) :
+        (<Tooltip
+            title={displayText}
+            placement="right">
+            <ListItem
+                className={clsx(null, { [classes.selectedListItem]: isCurrent })}
+                onClick={() => navigationClicked(path)}
+                button>
+                <ListItemIcon
+                    className={clsx(null, { [classes.selectedListItem]: isCurrent })}>
+                    <Icon>{icon}</Icon>
+                </ListItemIcon>
+                <ListItemText
+                    className={clsx(null, { [classes.selectedListItem]: isCurrent })}
+                    primary={displayText} />
+            </ListItem>
+        </Tooltip>)
 }
