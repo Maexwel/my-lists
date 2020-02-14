@@ -101,7 +101,7 @@ const useStyles = makeStyles((theme) =>
 );
 // Base Page template of the application
 const Page = (props) => {
-    const { component: Component, path, name, displayText, viewToState, currentPage, history, translation } = props; // Component to inject
+    const { component: Component, path, name, displayText, viewToState, currentPage, history, translation, user } = props; // Component to inject
 
     useEffect(() => {
         viewToState({ currentPage: { path, name, displayText } }); // set the current page (route = { path: '/', name: '/' })
@@ -140,7 +140,7 @@ const Page = (props) => {
     };
 
     return (
-        <Auth isAuth={true} loginPath="/login">
+        <Auth isAuth={user.app_user_id && user.app_user_id !== null} loginPath="/login">
             <div className={classes.root}>
                 <CssBaseline />
                 <AppBar
@@ -148,8 +148,7 @@ const Page = (props) => {
                     className={clsx(classes.appBar, {
                         [classes.appBarShift]: open,
                     })}
-                    color="primary"
-                >
+                    color="primary">
                     <Toolbar>
                         <Grid
                             justify="space-between"
@@ -259,6 +258,7 @@ const Page = (props) => {
 const mapStateToProps = state => ({
     currentPage: state.view.currentPage, // Current location in the app
     translation: state.lang.translation, // Content translated
+    user: state.user, // Auth user of the app
 })
 
 const mapDispatchToProps = dispatch => {

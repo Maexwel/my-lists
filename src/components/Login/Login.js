@@ -38,9 +38,19 @@ const Login = ({ client, translation, history, userToState }) => {
 
     // Check local storage to handle login redirection
     const checkStorage = async () => {
-        const userInfo = await localStorageManager.getItem(localStorageManager.KEYS.USER_INFO);
-        if (userInfo) {
-            // User is authentified
+        try {
+            const userInfo = await localStorageManager.getItem(localStorageManager.KEYS.USER_INFO);
+            if (userInfo) {
+                // User is authentified
+                setLoading(true);
+                userService._client = client;
+                const completeUser = await userService.fetchCompleteUser(userInfo.app_user_id);
+                userToState(completeUser); // Redux user
+                history.push('/dashboard'); // Redirect
+            }
+        } catch (err) {
+            // display error to user
+            setErrorMessage(translation["LOGIN_ERROR_MESSAGE"]); // Error message
         }
     };
 
@@ -68,6 +78,7 @@ const Login = ({ client, translation, history, userToState }) => {
             loginService._client = client; // Setup client
             const { user, auth } = await loginService.login({ email, passwd }); // Login request
             if (auth) {
+                await localStorageManager.setItem(localStorageManager.KEYS["USER_INFO"], user); // Store user info in local storage
                 userService._client = client;
                 const completeUser = await userService.fetchCompleteUser(user.app_user_id); // Fetch complete info
                 userToState(completeUser); // Redux user

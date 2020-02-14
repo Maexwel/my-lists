@@ -5,7 +5,7 @@ import { TextField as MaterialTextField } from '@material-ui/core';
 // Custom TextField component
 // Override of Material Input Textfield
 const TextField = (props) => {
-    const { onChange, inputRef } = props;
+    const { onChange, inputRef, fullWidth } = props;
 
     // Handle user typing in textfield
     const handleChange = (e) => {
@@ -19,10 +19,10 @@ const TextField = (props) => {
     return (
         <MaterialTextField
             {...props}
+            fullWidth={fullWidth}
             variant="outlined"
             onChange={handleChange}
-            ref={inputRef}
-        />
+            ref={inputRef} />
     );
 };
 TextField.propTypes = {

@@ -75,6 +75,10 @@
         "fr": "Nouvelle liste",
         "en": "New list"
     },
+    "CREATE_LIST_NAME_FIELD": {
+        "fr": "Nom de la liste",
+        "en": "List's name"
+    },
     "ACTIVE_LIST_DASHBOARD": {
         "fr": "Actives",
         "en": "Actives"
@@ -86,5 +90,13 @@
     "SHARED_LIST_DASHBOARD": {
         "fr": "Partagées",
         "en": "Shared with me"
+    },
+    "CREATE_LIST_FRIENDS": {
+        "fr": "Partager avec",
+        "en": "Share with"
+    },
+    "CREATE_LIST_FRIENDS_PLACEHOLDER": {
+        "fr": "Choissisez des personnes",
+        "en": "Chose persons"
     }
 }

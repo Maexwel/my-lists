@@ -16,13 +16,13 @@ export default class ListService extends GraphQLService {
                     created_at
                     list_items {
                     list_item_id
-                    label
-                    created_at
-                    is_checked
-                    item_type {
-                        item_type_id
                         label
-                    }
+                        created_at
+                        is_checked
+                        item_type {
+                            item_type_id
+                            label
+                        }
                     }
             }
         }`;

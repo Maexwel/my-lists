@@ -5,19 +5,17 @@ import { withRouter } from 'react-router-dom';
 // Auth component used to wrap base Pages
 // This component is there to redirect user to login page if auth doesn't match (token not there in most cases)
 // Toggle the isAuth state to make redirection to login page
-const Auth = ({ loginPath, children, isAuth = true, history }) => {
+const Auth = ({ loginPath, children, history, isAuth }) => {
 
-    // use effect to redirect if not logged in
     useEffect(() => {
         if (!isAuth) {
-            history.push(loginPath); // Redirect to login page
+            history.push(loginPath); // Redirect to login page            
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAuth, loginPath]);
+    }, []);
 
     return (
         <React.Fragment>
-            {children}
+            {isAuth && children}
         </React.Fragment>
     );
 };

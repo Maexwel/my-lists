@@ -9,7 +9,7 @@ export default class UserService extends GraphQLService {
         return new Promise(async (resolve, reject) => {
             try {
                 const query = gql`
-                    query userLists($id: Int!) {
+                    query user($id: Int!) {
                         app_user(where: {app_user_id: {_eq: $id}}) {
                             app_user_id
                             email
@@ -33,5 +33,30 @@ export default class UserService extends GraphQLService {
                 reject(err);
             }
         })
+    }
+
+    // Fetch all users but not the authentified one
+    fetchAllWithout = (id) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const query = gql`
+                    query users($id: Int!) {
+                        app_user(where: {app_user_id: {_neq: $id}}) {
+                            app_user_id
+                            email
+                            username
+                        }
+                    }
+                `;
+                const { data } = await this._client.query({ query, fetchPolicy: 'no-cache', variables: { id } }); // Fetch data
+                if (data.app_user && data.app_user.length > 0) {
+                    resolve(data.app_user);
+                } else {
+                    reject("No data found");
+                }
+            } catch (err) {
+                reject(err);
+            }
+        });
     }
 };

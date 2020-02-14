@@ -29,7 +29,6 @@ const ActionDialog = ({ isOpen, toggle, title, children, onCancel, onSubmit, ful
             fullScreen={fullScreen}
             fullWidth
             maxWidth="sm"
-            scroll="paper"
             open={isOpen}
             onClose={toggle}>
             {/** HEAD */}
@@ -48,7 +47,6 @@ const ActionDialog = ({ isOpen, toggle, title, children, onCancel, onSubmit, ful
                                 icon="close"
                                 onClick={onCancel}
                                 className={classes.close} />
-
                         </Grid>}
                 </Grid>
             </DialogTitle>
