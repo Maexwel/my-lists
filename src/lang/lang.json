@@ -98,5 +98,17 @@
     "CREATE_LIST_FRIENDS_PLACEHOLDER": {
         "fr": "Choissisez des personnes",
         "en": "Chose persons"
+    },
+    "FETCH_FRIENDS_ERROR": {
+        "fr": "Erreur : récupération d'amis",
+        "en": "Error: fetching friends"
+    },
+    "FETCH_LIST_ERROR": {
+        "fr": "Erreur : récupération de la liste",
+        "en": "Error : fetching list"
+    },
+    "CREATE_LIST_ERROR": {
+        "fr": "Erreur lors de la création de liste",
+        "en": "Error while creating list"
     }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import clsx from 'clsx';
 import { createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { Drawer, Grid, AppBar, Toolbar, Tooltip, List, ListItemText, ListItemIcon, ListItem, IconButton, Divider, CssBaseline, Typography, Icon } from '@material-ui/core';
@@ -8,6 +8,8 @@ import { withRouter } from 'react-router-dom';
 import { Auth } from '../../Auth';
 import { ActionButton } from '../../ui-kit';
 import { Version } from '../../Version';
+import { setUserAction } from '../../../store/actions/userActions';
+import { ServiceLocatorContext } from '../../context';
 
 const drawerWidth = 220;
 
@@ -101,16 +103,16 @@ const useStyles = makeStyles((theme) =>
 );
 // Base Page template of the application
 const Page = (props) => {
-    const { component: Component, path, name, displayText, viewToState, currentPage, history, translation, user } = props; // Component to inject
+    const { component: Component, path, name, displayText, viewToState, currentPage, history, translation, user, userToState } = props; // Component to inject
+    const classes = useStyles();
+    const theme = useTheme();
+    const [open, setOpen] = React.useState(false);
+    const { localStorageManager } = useContext(ServiceLocatorContext);
 
     useEffect(() => {
         viewToState({ currentPage: { path, name, displayText } }); // set the current page (route = { path: '/', name: '/' })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [path, name])
-
-    const classes = useStyles();
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
 
     // Main menu's linksS
     const links = [
@@ -134,9 +136,11 @@ const Page = (props) => {
         setOpen(false);
     };
 
-    // Log user out of app (reset redux)
-    const logOut = (e) => {
-
+    // Handle log out request
+    const handleLogOut = async () => {
+        await localStorageManager.clear(); // remove user from local storage
+        userToState({});
+        history.push('/login');
     };
 
     return (
@@ -183,7 +187,7 @@ const Page = (props) => {
                                     variant="icon"
                                     icon="exit_to_app"
                                     color="inherit"
-                                    onClick={logOut} />
+                                    onClick={handleLogOut} />
                             </Grid>
                         </Grid>
                     </Toolbar>
@@ -266,6 +270,11 @@ const mapDispatchToProps = dispatch => {
         viewToState: (val) => {
             dispatch(
                 updateViewAction(val) // Update the view
+            )
+        },
+        userToState: (val) => {
+            dispatch(
+                setUserAction(val)
             )
         }
     }

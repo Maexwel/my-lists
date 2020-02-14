@@ -49,11 +49,7 @@ export default class UserService extends GraphQLService {
                     }
                 `;
                 const { data } = await this._client.query({ query, fetchPolicy: 'no-cache', variables: { id } }); // Fetch data
-                if (data.app_user && data.app_user.length > 0) {
-                    resolve(data.app_user);
-                } else {
-                    reject("No data found");
-                }
+                resolve(data.app_user); // Resolve array of users
             } catch (err) {
                 reject(err);
             }

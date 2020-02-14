@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Icon, Grid, Typography } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { ActionDialog, TextField, ComboBox } from '../../ui-kit';
+import { ActionDialog, TextField, ComboBox, Message } from '../../ui-kit';
 import { ServiceLocatorContext } from '../../context';
 import { withApollo } from 'react-apollo';
 import { useSnackbar } from 'notistack';
+import { setListAction } from '../../../store/actions/listActions';
 
 // Style def
 const useStyles = makeStyles(theme => createStyles({
@@ -31,12 +32,13 @@ const useStyles = makeStyles(theme => createStyles({
     }
 }));
 // Component used to create List for user
-const CreateList = ({ translation, user, client }) => {
+const CreateList = ({ translation, user, client, listToState }) => {
     const { enqueueSnackbar } = useSnackbar(); // Notification
     const classes = useStyles();
     const { listService, userService, notificationFactory } = useContext(ServiceLocatorContext);
     // State
     const [open, setOpen] = useState(false);
+    const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [name, setName] = useState('');
     const [users, setUsers] = useState([]);
@@ -56,7 +58,7 @@ const CreateList = ({ translation, user, client }) => {
             const friends = await userService.fetchAllWithout(user.app_user_id); // Apollo fetch
             setUsers(friends); // State update
         } catch (err) {
-            enqueueSnackbar(notificationFactory.buildNotification({ title: 'users', content: 'err', variant: 'error' })); // Show error
+            enqueueSnackbar(notificationFactory.buildNotification({ title: translation["FETCH_FRIENDS_ERROR"], err: err.message, variant: 'error' })); // Show error
         } finally {
             setLoading(false);
         }
@@ -68,10 +70,10 @@ const CreateList = ({ translation, user, client }) => {
         setLoading(true);
         try {
             listService._client = client; // Setup client
-            const newList = await listService.createList({ name }); // Graphql create list
-
+            const newList = await listService.createList({ name, userId: user.app_user_id }); // Graphql create list
+            listToState(newList); // Redux update state
         } catch (err) {
-
+            setError(true);
         }
     };
 
@@ -141,6 +143,10 @@ const CreateList = ({ translation, user, client }) => {
                             options={users.map(u => { return { value: u.app_user_id, label: u.username } })}
                             update={selectedOptionsChanges} />
                     </Grid>
+                    {error &&
+                        <Grid item>
+                            <Message value={translation["CREATE_LIST_ERROR"]} />
+                        </Grid>}
                 </Grid>
             </ActionDialog>
         </React.Fragment>
@@ -162,7 +168,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        listToState: (val) => {
+            dispatch(setListAction(val))
+        }
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withApollo(CreateList));

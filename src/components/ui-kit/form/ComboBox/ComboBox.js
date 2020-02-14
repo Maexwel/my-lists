@@ -33,6 +33,7 @@ const ComboBox = ({ update, multi = false, options = [], disabled = false, value
         control: (provided, state) => ({
             ...provided,
             cursor: 'pointer',
+            padding: '5px'
         }),
     }
     // Handle select changes

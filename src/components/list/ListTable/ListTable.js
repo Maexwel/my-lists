@@ -8,13 +8,15 @@ import { connect } from 'react-redux';
 import { updateListAction } from '../../../store/actions/listActions';
 
 // DataTable configured for the list items with actions
-const ListTable = ({ client, listToState, list = {} }) => {
+const ListTable = ({ client, translation, listToState, list }) => {
     const { listService, notificationFactory } = useContext(ServiceLocatorContext);
     const { enqueueSnackbar } = useSnackbar(); // Notification
 
     // on list id ready
     useEffect(() => {
-        loadList(); // Load list values
+        if (list.list_id) {
+            loadList(); // Load list values
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [list.list_id]);
 
@@ -25,7 +27,8 @@ const ListTable = ({ client, listToState, list = {} }) => {
             const listData = await listService.fetchListById(list.list_id); // Service
             listToState(listData); // Redux set list data
         } catch (err) {
-            enqueueSnackbar(notificationFactory.buildNotification({ title: "Error", content: 'ERROR', variant: 'error' })); // Push notification
+            console.log(err);
+            enqueueSnackbar(notificationFactory.buildNotification({ title: translation["FETCH_LIST_ERROR"], content: err.message, variant: 'error' })); // Push notification
         }
     };
 
@@ -58,7 +61,7 @@ ListTable.propTypes = {
 const mapStateToProps = state => ({
     list: state.list, // Current displayed list
     translation: state.lang.translation, // Current location in the app
-})
+});
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -68,5 +71,5 @@ const mapDispatchToProps = dispatch => {
             )
         }
     }
-}
+};
 export default withApollo(connect(mapStateToProps, mapDispatchToProps)(ListTable));

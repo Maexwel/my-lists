@@ -40,6 +40,18 @@ export default class LocalStorageManager {
         });
     }
 
+    // Clear the whole local storage
+    clear = ()=> {
+        return new Promise((resolve, reject) =>{
+            try{
+                localStorage.clear(); // Clear storage
+                resolve();
+            }catch(err){
+                reject(err);
+            }
+        })
+    }
+
     // Private func used to check if the key provided is valid
     // The key is the key of a localStorage entry
     _checkKey = (key = '') => {
