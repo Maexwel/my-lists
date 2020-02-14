@@ -38,13 +38,13 @@ const DashboardPage = ({ user, list, translation, listToState }) => {
                 container
                 justify="flex-start"
                 alignItems="stretch">
-                <Grid item md={2}>
+                <Grid item xl={2} md={3} sm={6}>
                     <DashboardItem label={translation["ACTIVE_LIST_DASHBOARD"]} />
                 </Grid>
-                <Grid item md={2}>
+                <Grid item xl={2} md={3} sm={6}>
                     <DashboardItem label={translation["ARCHIVED_LIST_DASHBOARD"]} />
                 </Grid>
-                <Grid item md={1} className={classes.fullHeight}>
+                <Grid item xl={1} md={2} sm={12} className={classes.fullHeight}>
                     {/** New list button */}
                     <CreateList />
                 </Grid>

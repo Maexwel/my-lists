@@ -5,8 +5,8 @@ import { Drawer, Grid, AppBar, Toolbar, List, ListItemText, ListItemIcon, ListIt
 import { connect } from 'react-redux';
 import { updateViewAction } from '../../../store/actions/viewActions';
 import { withRouter } from 'react-router-dom';
-import { LangPicker } from '../../LangPicker';
 import { Auth } from '../../Auth';
+import { ActionButton } from '../../ui-kit';
 
 const drawerWidth = 220;
 
@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) =>
         selectedListItem: {
             color: theme.palette.primary.main,
             background: theme.palette.grey[200]
+        },
+        appName: {
+            fontSize: 20,
         },
         appBar: {
             zIndex: theme.zIndex.drawer + 1,
@@ -119,6 +122,11 @@ const Page = (props) => {
         setOpen(false);
     };
 
+    // Log user out of app (reset redux)
+    const logOut = (e) => {
+
+    };
+
     return (
         <Auth isAuth={true} loginPath="/login">
             <div className={classes.root}>
@@ -149,10 +157,23 @@ const Page = (props) => {
                                     <Icon>menu</Icon>
                                 </IconButton>
                             </Grid>
+                            {/** APP NAME */}
                             <Grid item>
+                                <ActionButton
+                                    className={classes.appName}
+                                    color="inherit"
+                                    label={translation["APP_NAME"]}
+                                    buttonVariant="text"
+                                    onClick={() => history.push('/')} />
                             </Grid>
+                            {/** LOGOUT */}
                             <Grid item>
-                                <LangPicker />
+                                <ActionButton
+                                    tip={translation["LOGOUT_TIP"]}
+                                    variant="icon"
+                                    icon="exit_to_app"
+                                    color="inherit"
+                                    onClick={logOut} />
                             </Grid>
                         </Grid>
                     </Toolbar>

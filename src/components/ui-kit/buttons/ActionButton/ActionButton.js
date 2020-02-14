@@ -37,8 +37,9 @@ ActionButton.propTypes = {
     tip: PropTypes.string,
     icon: PropTypes.string, // Icon name
     variant: PropTypes.oneOf(["default", "fab", "icon"]),
+    buttonVariant: PropTypes.oneOf(["outlined", "contained", "text"]),
     type: PropTypes.string,
-    color: PropTypes.oneOf(["primary", "secondary", "default"]),
+    color: PropTypes.oneOf(["primary", "secondary", "default", "inherit", ""]),
     disabled: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
 };
@@ -49,11 +50,11 @@ export default ActionButton;
 
 // // //
 // Default button (Contained button)
-const DefaultButton = ({ label, icon, onClick, disabled, className, type, color }) => {
+const DefaultButton = ({ label, icon, onClick, disabled, className, type, color, buttonVariant = "contained" }) => {
     return (
         <Button
             onClick={onClick}
-            variant="contained"
+            variant={buttonVariant}
             color={color}
             disabled={disabled}
             className={className}
@@ -83,10 +84,11 @@ const FabButton = ({ icon, onClick, disabled, className, type }) => {
 
 // // //
 // Icon button (button that is an icon)
-const IconButton = ({ icon, onClick, disabled, className, type }) => {
+const IconButton = ({ icon, onClick, disabled, className, type, color }) => {
     return (
         <MaterialIconButton
             disabled={disabled}
+            color={color}
             type={type}
             onClick={onClick} >
             <Icon className={className}>

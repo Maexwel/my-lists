@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Button, Icon, Grid, Typography } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { ActionDialog } from '../../ui-kit';
+import { ServiceLocatorContext } from '../../context';
+import { withApollo } from 'react-apollo';
 
 // Style def
 const useStyles = makeStyles(theme => createStyles({
@@ -24,15 +26,25 @@ const useStyles = makeStyles(theme => createStyles({
     }
 }));
 // Component used to create List for user
-const CreateList = ({ translation, user }) => {
+const CreateList = ({ translation, user, client }) => {
     const classes = useStyles();
+    const { listService } = useContext(ServiceLocatorContext);
     // State
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     // Handle submit dialog
     // It should create a new list item and then redirect to list page
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        try {
+            listService._client = client; // Setup client
+            const newList = await listService.createList({}); // Graphql create list
+
+        } catch (err) {
+
+        }
     };
 
     return (
@@ -61,6 +73,7 @@ const CreateList = ({ translation, user }) => {
                 title={translation["CREATE_LIST_DIALOG_TITLE"]}
                 cancelLabel={translation["CREATE_LIST_DIALOG_CANCEL"]}
                 submitLabel={translation["CREATE_LIST_DIALOG_SUBMIT"]}
+                submitDisabled={loading}
                 isOpen={open}
                 toggle={() => setOpen(false)}
                 onCancel={() => setOpen(false)}
@@ -76,6 +89,7 @@ CreateList.propTypes = {
 
     }),
     translation: PropTypes.object,
+    client: PropTypes.object, // Graphql client
 };
 // // //
 // Redux connection
@@ -89,4 +103,4 @@ const mapDispatchToProps = dispatch => {
 
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(CreateList);
+export default connect(mapStateToProps, mapDispatchToProps)(withApollo(CreateList));

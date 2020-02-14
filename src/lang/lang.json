@@ -7,6 +7,14 @@
         "fr": "Anglais",
         "en": "English"
     },
+    "APP_NAME": {
+        "fr": "My Lists",
+        "en": "My Lists"
+    },
+    "LOGOUT_TIP": {
+        "fr": "Se déconnecter",
+        "en": "Logout"
+    },
     "DASHBOARD_PAGE": {
         "fr": "Tableau de bord",
         "en": "Dashboard"
