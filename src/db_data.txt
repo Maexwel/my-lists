@@ -76,3 +76,13 @@ CREATE INDEX "fkIdx_42" ON "suggestion"
 (
  "item_type_id"
 );
+
+-- ************************************** "list_shared_with"
+CREATE TABLE list_shared_with
+(
+    "app_user_id" int NOT NULL,
+    "list_id" int NOT NULL,
+    CONSTRAINT "FK_user_shared" FOREIGN KEY ( "app_user_id") REFERENCES "app_user" ( "app_user_id" ),
+    CONSTRAINT "FK_list_shared" FOREIGN KEY ( "list_id") REFERENCES "list" ( "list_id" ),
+    UNIQUE (app_user_id, list_id)
+)

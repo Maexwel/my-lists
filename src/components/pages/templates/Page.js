@@ -7,6 +7,7 @@ import { updateViewAction } from '../../../store/actions/viewActions';
 import { withRouter } from 'react-router-dom';
 import { Auth } from '../../Auth';
 import { ActionButton } from '../../ui-kit';
+import { Version } from '../../Version';
 
 const drawerWidth = 220;
 
@@ -18,6 +19,17 @@ const useStyles = makeStyles((theme) =>
         selectedListItem: {
             color: theme.palette.primary.main,
             background: theme.palette.grey[200]
+        },
+        fullWidth: {
+            width: '100%',
+        },
+        fullHeight: {
+            height: '100%',
+        },
+        version: {
+            padding: theme.spacing(1),
+            fontSize: 15,
+            textAlign: 'center',
         },
         appName: {
             fontSize: 20,
@@ -177,6 +189,7 @@ const Page = (props) => {
                         </Grid>
                     </Toolbar>
                 </AppBar>
+                {/** LEFT MENU */}
                 <Drawer
                     variant="permanent"
                     className={clsx(classes.drawer, {
@@ -189,8 +202,7 @@ const Page = (props) => {
                             [classes.drawerClose]: !open,
                         }),
                     }}
-                    open={open}
-                >
+                    open={open}>
                     <div className={classes.toolbar}>
                         <Typography component="h5">
                             {translation["DRAWER_TITLE"]}
@@ -200,18 +212,39 @@ const Page = (props) => {
                         </IconButton>
                     </div>
                     <Divider />
-                    <List>
-                        {currentPage ?
-                            links.map((link, index) => (
-                                <DrawerLink
-                                    key={index}
-                                    {...link}
-                                    displayText={translation[link.name]}
-                                    isCurrent={currentPage.name === link.name}
-                                    history={history}
-                                    drawerOpen={open} />
-                            )) : null}
-                    </List>
+                    <Grid
+                        className={classes.fullHeight}
+                        container
+                        direction="column"
+                        justify="space-between">
+                        {/** LINKS */}
+                        <Grid
+                            className={classes.fullWidth}
+                            item>
+                            <List>
+                                {currentPage ?
+                                    links.map((link, index) => (
+                                        <DrawerLink
+                                            key={index}
+                                            {...link}
+                                            displayText={translation[link.name]}
+                                            isCurrent={currentPage.name === link.name}
+                                            history={history}
+                                            drawerOpen={open} />
+                                    )) : null}
+                            </List>
+                        </Grid>
+                        {/** APP Version */}
+                        <Grid
+                            className={classes.fullWidth}
+                            item>
+                            <React.Fragment>
+                                <Divider />
+                                {open &&
+                                    <Version className={classes.version} />}
+                            </React.Fragment>
+                        </Grid>
+                    </Grid>
                 </Drawer>
                 <div className={classes.content}>
                     {/** Component injection */}
@@ -250,30 +283,30 @@ const DrawerLink = ({ path, icon, isCurrent, history, drawerOpen, displayText = 
     const classes = useStyles();
     return drawerOpen ?
         (<ListItem
-            className={clsx(null, { [classes.selectedListItem]: isCurrent })}
+            className={clsx({ [classes.selectedListItem]: isCurrent })}
             onClick={() => navigationClicked(path)}
             button>
             <ListItemIcon
-                className={clsx(null, { [classes.selectedListItem]: isCurrent })}>
+                className={clsx({ [classes.selectedListItem]: isCurrent })}>
                 <Icon>{icon}</Icon>
             </ListItemIcon>
             <ListItemText
-                className={clsx(null, { [classes.selectedListItem]: isCurrent })}
+                className={clsx({ [classes.selectedListItem]: isCurrent })}
                 primary={displayText} />
         </ListItem>) :
         (<Tooltip
             title={displayText}
             placement="right">
             <ListItem
-                className={clsx(null, { [classes.selectedListItem]: isCurrent })}
+                className={clsx({ [classes.selectedListItem]: isCurrent })}
                 onClick={() => navigationClicked(path)}
                 button>
                 <ListItemIcon
-                    className={clsx(null, { [classes.selectedListItem]: isCurrent })}>
+                    className={clsx({ [classes.selectedListItem]: isCurrent })}>
                     <Icon>{icon}</Icon>
                 </ListItemIcon>
                 <ListItemText
-                    className={clsx(null, { [classes.selectedListItem]: isCurrent })}
+                    className={clsx({ [classes.selectedListItem]: isCurrent })}
                     primary={displayText} />
             </ListItem>
         </Tooltip>)

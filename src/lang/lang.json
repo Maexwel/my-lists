@@ -76,11 +76,15 @@
         "en": "New list"
     },
     "ACTIVE_LIST_DASHBOARD": {
-        "fr": "Listes actives",
-        "en": "Active lists"
+        "fr": "Actives",
+        "en": "Actives"
     },
     "ARCHIVED_LIST_DASHBOARD": {
         "fr": "Archives",
         "en": "Archived"
+    },
+    "SHARED_LIST_DASHBOARD": {
+        "fr": "Partagées",
+        "en": "Shared with me"
     }
 }

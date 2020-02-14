@@ -22,7 +22,7 @@ import ApolloClient from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from 'react-apollo';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-require('dotenv').config();
+require('dotenv').config(); // env
 
 const store = storeFactory();
 
